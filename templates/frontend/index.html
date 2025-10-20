@@ -3,36 +3,143 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3 Buttons Example</title>
+  <title>Flask One Page | Shoaib Ahmed</title>
+
   <style>
+    /* === Global Styles === */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top left, #0f172a, #1e293b);
+      color: #f1f5f9;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      margin-top: 100px;
     }
+
+    /* === Animated RGB Text === */
+    .rgb-text {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+      background-size: 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rgbFlow 6s linear infinite;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    @keyframes rgbFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* === Sub Animated Text === */
+    .moving-text {
+      font-size: 1.2rem;
+      color: #a5f3fc;
+      margin-bottom: 40px;
+      animation: floatText 3s ease-in-out infinite;
+    }
+
+    @keyframes floatText {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* === Button Styling === */
+    .button-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
     button {
-      padding: 10px 20px;
-      margin: 10px;
-      font-size: 16px;
-      cursor: pointer;
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
       border: none;
-      background-color: #4CAF50;
+      padding: 14px 36px;
+      border-radius: 12px;
+      font-size: 1rem;
       color: white;
-      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
     }
+
     button:hover {
-      background-color: #45a049;
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      box-shadow: 0 6px 15px rgba(59, 130, 246, 0.5);
+    }
+
+    button:active {
+      transform: scale(0.97);
+      box-shadow: 0 2px 6px rgba(59, 130, 246, 0.3);
+    }
+
+    /* === Footer === */
+    footer {
+      position: absolute;
+      bottom: 15px;
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+
+    footer a {
+      color: #38bdf8;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* === Smooth fade-in effect === */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 <body>
-  <h2>3 Buttons Example</h2>
+  <h1 class="rgb-text fade-in">Welcome to Flask One Page</h1>
+  <p class="moving-text fade-in">Dynamic, Modern, and Fully Responsive UI</p>
 
-  <button id="btn1">Button 1</button>
-  <button id="btn2">Button 2</button>
-  <button id="btn3">Button 3</button>
+  <div class="button-container fade-in">
+    <button id="btn1">Speak</button>
+    <button id="btn2">Stop</button>
+    <button id="btn3">Reset</button>
+  </div>
 
-  <!-- Correct linking using url_for() -->
+  <footer class="fade-in">
+    © 2025 <a href="#">Shoaib Ahmed</a> | Powered by Flask
+  </footer>
+
+  <!-- Linked JS files -->
   <script src="{{ url_for('static', filename='javascript/button1.js') }}"></script>
   <script src="{{ url_for('static', filename='javascript/button2.js') }}"></script>
   <script src="{{ url_for('static', filename='javascript/button3.js') }}"></script>
