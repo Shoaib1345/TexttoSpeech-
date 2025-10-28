@@ -1,20 +1,21 @@
 # TexttoSpeech-
-## Required Commands
-```
-pip install flask
-```
-```
-pip install gTTS
-```
-Group Project
 
 Setup & Run
 # 1️⃣ Create virtual environment
 python -m venv venv
 venv\Scripts\activate      # Windows
 # 2️⃣ Install dependencies
-pip install flask pyttsx3 pypiwin32
+```
+pip install flask
+```
+```
+pip install gTTS
+```
 
+
+``` 
+pip install pyttsx3
+```
 # 3️⃣ Run the Flask app
 python app.py
 
@@ -32,7 +33,8 @@ Adjust voice speed and volume
 
 Buttons: Speak, Stop, and Reset
 
-📁 Folder Structure
+# 📁 Folder Structure
+```
 TexttoSpeech/
 │
 ├── app.py
@@ -43,3 +45,4 @@ TexttoSpeech/
     ├── javascript/
     │   └── button1.js
     └── audio/
+```
