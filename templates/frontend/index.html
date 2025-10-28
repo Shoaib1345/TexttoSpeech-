@@ -3,34 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flask One Page | Shoaib Ahmed</title>
-
+  <title>Flask Text-to-Speech | Shoaib Ahmed</title>
   <style>
-    /* === Global Styles === */
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Poppins', sans-serif;
       background: radial-gradient(circle at top left, #0f172a, #1e293b);
       color: #f1f5f9;
       height: 100vh;
-      overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
     }
-
-    /* === Animated RGB Text === */
     .rgb-text {
-      font-size: 2.5rem;
+      font-size: 2.3rem;
       font-weight: 700;
       background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
       background-size: 400%;
@@ -39,107 +28,92 @@
       animation: rgbFlow 6s linear infinite;
       letter-spacing: 2px;
       text-transform: uppercase;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
-
     @keyframes rgbFlow {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-
-    /* === Sub Animated Text === */
-    .moving-text {
-      font-size: 1.2rem;
-      color: #a5f3fc;
-      margin-bottom: 40px;
-      animation: floatText 3s ease-in-out infinite;
+    .input-container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 12px;
+      width: 70%;
+      max-width: 600px;
+      margin-bottom: 25px;
     }
-
-    @keyframes floatText {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+    textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      resize: none;
+      font-size: 1rem;
+      outline: none;
     }
-
-    /* === Button Styling === */
+    select {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      margin-top: 10px;
+    }
     .button-container {
       display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
+      gap: 15px;
       justify-content: center;
+      margin-top: 20px;
     }
-
     button {
       background: linear-gradient(135deg, #3b82f6, #2563eb);
       border: none;
-      padding: 14px 36px;
-      border-radius: 12px;
+      padding: 14px 32px;
+      border-radius: 10px;
       font-size: 1rem;
       color: white;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
     }
-
     button:hover {
       transform: scale(1.05);
       background: linear-gradient(135deg, #2563eb, #1d4ed8);
-      box-shadow: 0 6px 15px rgba(59, 130, 246, 0.5);
     }
-
-    button:active {
-      transform: scale(0.97);
-      box-shadow: 0 2px 6px rgba(59, 130, 246, 0.3);
-    }
-
-    /* === Footer === */
     footer {
       position: absolute;
-      bottom: 15px;
+      bottom: 10px;
       font-size: 0.9rem;
       color: #94a3b8;
     }
-
-    footer a {
-      color: #38bdf8;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    /* === Smooth fade-in effect === */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 1s ease forwards;
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+    footer a { color: #38bdf8; text-decoration: none; }
+    audio { margin-top: 20px; width: 70%; }
   </style>
 </head>
 <body>
-  <h1 class="rgb-text fade-in">Welcome to Flask One Page</h1>
-  <p class="moving-text fade-in">Dynamic, Modern, and Fully Responsive UI</p>
+  <h1 class="rgb-text">Flask Text-to-Speech</h1>
 
-  <div class="button-container fade-in">
+  <div class="input-container">
+    <textarea id="textInput" placeholder="Enter text here..."></textarea><br>
+    <select id="languageSelect">
+      <option value="en">English</option>
+      <option value="de">German</option>
+      <option value="ja">Japanese</option>
+      <option value="it">Italian</option>
+    </select>
+  </div>
+
+  <div class="button-container">
     <button id="btn1">Speak</button>
     <button id="btn2">Stop</button>
     <button id="btn3">Reset</button>
   </div>
 
-  <footer class="fade-in">
-{#    © 2025 <a href="#">Shoaib Ahmed</a> | Powered by Flask#}
-  </footer>
+  <audio id="audioPlayer" controls hidden></audio>
 
-  <!-- Linked JS files -->
+  <footer>© 2025 <a href="#">Shoaib Ahmed</a> | Powered by Flask</footer>
+
   <script src="{{ url_for('static', filename='javascript/button1.js') }}"></script>
   <script src="{{ url_for('static', filename='javascript/button2.js') }}"></script>
   <script src="{{ url_for('static', filename='javascript/button3.js') }}"></script>
