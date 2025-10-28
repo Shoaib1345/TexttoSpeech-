@@ -1,121 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flask Text-to-Speech | Shoaib Ahmed</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at top left, #0f172a, #1e293b);
-      color: #f1f5f9;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-    .rgb-text {
-      font-size: 2.3rem;
-      font-weight: 700;
-      background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
-      background-size: 400%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: rgbFlow 6s linear infinite;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 15px;
-    }
-    @keyframes rgbFlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .input-container {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 20px;
-      border-radius: 12px;
-      width: 70%;
-      max-width: 600px;
-      margin-bottom: 25px;
-    }
-    textarea {
-      width: 100%;
-      height: 100px;
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      resize: none;
-      font-size: 1rem;
-      outline: none;
-    }
-    select {
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      font-size: 1rem;
-      margin-top: 10px;
-    }
-    .button-container {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      margin-top: 20px;
-    }
-    button {
-      background: linear-gradient(135deg, #3b82f6, #2563eb);
-      border: none;
-      padding: 14px 32px;
-      border-radius: 10px;
-      font-size: 1rem;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    button:hover {
-      transform: scale(1.05);
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-    }
-    footer {
-      position: absolute;
-      bottom: 10px;
-      font-size: 0.9rem;
-      color: #94a3b8;
-    }
-    footer a { color: #38bdf8; text-decoration: none; }
-    audio { margin-top: 20px; width: 70%; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Selection</title>
+    <style>
+        /* Your existing CSS for styling is kept here */
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        #animation-container {
+            /* This container is no longer strictly needed for animation but is kept for structure/context */
+            width: 200px;
+            height: 200px;
+            background-color: #3498db;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+        }
+
+        .control-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        #btn-pyttsx { background-color: #e74c3c; } /* Red */
+        #btn-api { background-color: #2ecc71; } /* Green */
+        #btn-trained { background-color: #f1c40f; } /* Yellow */
+
+        .control-button:hover {
+            opacity: 0.9;
+        }
+
+        /* The animation/state CSS classes are no longer necessary for redirection */
+    </style>
 </head>
 <body>
-  <h1 class="rgb-text">Flask Text-to-Speech</h1>
 
-  <div class="input-container">
-    <textarea id="textInput" placeholder="Enter text here..."></textarea><br>
-    <select id="languageSelect">
-      <option value="en">English</option>
-      <option value="de">German</option>
-      <option value="ja">Japanese</option>
-      <option value="it">Italian</option>
-    </select>
-  </div>
+  
 
-  <div class="button-container">
-    <button id="btn1">Speak</button>
-    <button id="btn2">Stop</button>
-    <button id="btn3">Reset</button>
-  </div>
+    <div class="button-container">
+        <button id="btn-pyttsx" class="control-button" onclick="redirectToPage('/pyttsx_model')">Pyttsx Model</button>
+        <button id="btn-api" class="control-button" onclick="redirectToPage('/api_model')">API Model</button>
+        <button id="btn-trained" class="control-button" onclick="redirectToPage('/trained_model')">Trained Model</button>
+    </div>
 
-  <audio id="audioPlayer" controls hidden></audio>
+    <script>
+        /**
+         * Redirects the browser to a specific URL path.
+         * @param {string} urlPath - The Flask route to redirect to (e.g., '/pyttsx_model').
+         */
+        function redirectToPage(urlPath) {
+            // Use window.location.href to change the current page URL
+            window.location.href = urlPath;
+        }
+    </script>
 
-  <footer>© 2025 <a href="#">Shoaib Ahmed</a> | Powered by Flask</footer>
-
-  <script src="{{ url_for('static', filename='javascript/button1.js') }}"></script>
-  <script src="{{ url_for('static', filename='javascript/button2.js') }}"></script>
-  <script src="{{ url_for('static', filename='javascript/button3.js') }}"></script>
 </body>
 </html>
