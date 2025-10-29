@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flask Text-to-Speech | Shoaib Ahmed</title>
+  <title>Flask Text-to-Speech</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -98,9 +98,6 @@
     <textarea id="textInput" placeholder="Enter text here..."></textarea><br>
     <select id="languageSelect">
       <option value="en">English</option>
-      <option value="de">German</option>
-      <option value="ja">Japanese</option>
-      <option value="it">Italian</option>
     </select>
   </div>
 
@@ -112,7 +109,7 @@
 
   <audio id="audioPlayer" controls hidden></audio>
 
-  <footer>© 2025 <a href="#">Shoaib Ahmed</a> | Powered by Flask</footer>
+  <footer>Powered by Flask</footer>
 
   <script src="{{ url_for('static', filename='javascript/button1.js') }}"></script>
   <script src="{{ url_for('static', filename='javascript/button2.js') }}"></script>
