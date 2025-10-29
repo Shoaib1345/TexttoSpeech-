@@ -126,19 +126,17 @@
     <div class="circle" style="left:70%; width:50px; height:50px; animation-delay:4s;"></div>
     <div class="circle" style="left:85%; width:30px; height:30px; animation-delay:6s;"></div>
 
-    <!-- CSS-only wave animation -->
-    <div class="wave"></div>
-    <div class="wave"></div>
-
     <!-- Main container -->
     <div class="container">
         <h1>🗣️ Choose Your Voice Model</h1>
         <p class="subtitle">Select a text-to-speech engine to start generating speech.</p>
         <div class="button-container">
-            <button id="btn-pyttsx" class="control-button" onclick="redirectToPage('/pyttsx_model')">Pyttsx Model</button>
-            <button id="btn-api" class="control-button" onclick="redirectToPage('/api_model')">API Model</button>
+            <button id="btn-pyttsx" class="control-button" onclick="redirectToPage('/api_model')">API Model</button>
+            <button id="btn-api" class="control-button" onclick="redirectToPage('/pyttsx_model')">Pyttsx Model</button>
             <button id="btn-trained" class="control-button" onclick="redirectToPage('/trained_model')">Trained Model</button>
         </div>
+
+
     </div>
 
     <script>
