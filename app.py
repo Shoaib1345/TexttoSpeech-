@@ -26,8 +26,10 @@ def speak():
     data = request.get_json()
     text = data.get('text', '')
     lang = data.get('lang', 'en')
+
     if not text.strip():
         return jsonify({"error": "Text cannot be empty"}), 400
+
     try:
         tts = gTTS(text=text, lang=lang)
         tts.save(OUTPUT_FILE)
@@ -42,8 +44,10 @@ def speak_pyttsx():
     text = data.get('text', '')
     rate = data.get('rate', 200)
     volume = data.get('volume', 1.0)
+
     if not text.strip():
         return jsonify({"error": "Text cannot be empty"}), 400
+
     try:
         engine = pyttsx3.init()
         engine.setProperty('rate', rate)
@@ -51,6 +55,26 @@ def speak_pyttsx():
         engine.save_to_file(text, OUTPUT_FILE)
         engine.runAndWait()
         return jsonify({"status": "success", "file": "/" + OUTPUT_FILE})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# ✅ Stop Speech Route
+@app.route('/stop', methods=['POST'])
+def stop():
+    try:
+        if os.path.exists(OUTPUT_FILE):
+            os.remove(OUTPUT_FILE)
+        return jsonify({"status": "Speech stopped"})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# ✅ Reset System Route
+@app.route('/reset', methods=['POST'])
+def reset():
+    try:
+        if os.path.exists(OUTPUT_FILE):
+            os.remove(OUTPUT_FILE)
+        return jsonify({"status": "System reset"})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
