@@ -5,78 +5,157 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Model Selection</title>
     <style>
-        /* Your existing CSS for styling is kept here */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: sans-serif;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f4f4f9;
+            background: radial-gradient(circle at 30% 30%, #0a0a1f, #000);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
         }
 
-        #animation-container {
-            /* This container is no longer strictly needed for animation but is kept for structure/context */
-            width: 200px;
-            height: 200px;
-            background-color: #3498db;
+        /* CSS-based animated waves (no image needed) */
+        .wave {
+            position: absolute;
+            bottom: 0;
+            width: 200%;
+            height: 120px;
+            background: repeating-linear-gradient(
+                -45deg,
+                rgba(0, 255, 255, 0.2) 0px,
+                rgba(0, 255, 255, 0.2) 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            animation: waveMove 6s linear infinite;
+            opacity: 0.1;
+            transform: rotate(2deg);
+        }
+
+        .wave:nth-child(2) {
+            animation-delay: -3s;
+            opacity: 0.2;
+        }
+
+        @keyframes waveMove {
+            from { transform: translateX(0) rotate(2deg); }
+            to { transform: translateX(-50%) rotate(2deg); }
+        }
+
+        .container {
+            text-align: center;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px 60px;
+            z-index: 10;
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.2);
+        }
+
+        h1 {
+            font-size: 2.4em;
+            color: #00ffe7;
+            text-shadow: 0 0 10px #00ffe7;
             margin-bottom: 20px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2em;
-            transition: all 0.5s ease-in-out;
+        }
+
+        .subtitle {
+            font-size: 1em;
+            color: #aaa;
+            margin-bottom: 40px;
         }
 
         .button-container {
             display: flex;
-            gap: 15px;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         .control-button {
-            padding: 10px 20px;
+            padding: 14px 28px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 1em;
             color: white;
-            transition: background-color 0.3s ease;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+            background: linear-gradient(135deg, #00c3ff, #0061ff);
+            box-shadow: 0 0 10px rgba(0, 195, 255, 0.4);
+            transition: all 0.3s ease;
         }
-
-        #btn-pyttsx { background-color: #e74c3c; } /* Red */
-        #btn-api { background-color: #2ecc71; } /* Green */
-        #btn-trained { background-color: #f1c40f; } /* Yellow */
 
         .control-button:hover {
-            opacity: 0.9;
+            transform: translateY(-4px);
+            box-shadow: 0 0 20px rgba(0, 195, 255, 0.7);
         }
 
-        /* The animation/state CSS classes are no longer necessary for redirection */
+        #btn-pyttsx { background: linear-gradient(135deg, #ff416c, #ff4b2b); }
+        #btn-api { background: linear-gradient(135deg, #00b09b, #96c93d); }
+        #btn-trained { background: linear-gradient(135deg, #f7971e, #ffd200); }
+
+        /* Floating circles background */
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(0, 255, 255, 0.1);
+            animation: floatUp 10s linear infinite;
+        }
+
+        @keyframes floatUp {
+            from { transform: translateY(100vh) scale(0.5); opacity: 0.3; }
+            to { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
     </style>
 </head>
 <body>
 
-  
+    <!-- Floating animated circles -->
+    <div class="circle" style="left:10%; width:40px; height:40px; animation-delay:0s;"></div>
+    <div class="circle" style="left:40%; width:25px; height:25px; animation-delay:2s;"></div>
+    <div class="circle" style="left:70%; width:50px; height:50px; animation-delay:4s;"></div>
+    <div class="circle" style="left:85%; width:30px; height:30px; animation-delay:6s;"></div>
 
-    <div class="button-container">
-        <button id="btn-pyttsx" class="control-button" onclick="redirectToPage('/pyttsx_model')">Pyttsx Model</button>
-        <button id="btn-api" class="control-button" onclick="redirectToPage('/api_model')">API Model</button>
-        <button id="btn-trained" class="control-button" onclick="redirectToPage('/trained_model')">Trained Model</button>
+    <!-- Main container -->
+    <div class="container">
+        <h1>🗣️ Choose Your Voice Model</h1>
+        <p class="subtitle">Select a text-to-speech engine to start generating speech.</p>
+        <div class="button-container">
+            <button id="btn-pyttsx" class="control-button" onclick="redirectToPage('/api_model')">API Model</button>
+            <button id="btn-api" class="control-button" onclick="redirectToPage('/pyttsx_model')">Pyttsx Model</button>
+            <button id="btn-trained" class="control-button" onclick="redirectToPage('/trained_model')">Trained Model</button>
+        </div>
+
+
     </div>
 
     <script>
-        /**
-         * Redirects the browser to a specific URL path.
-         * @param {string} urlPath - The Flask route to redirect to (e.g., '/pyttsx_model').
-         */
+        // Redirect function
         function redirectToPage(urlPath) {
-            // Use window.location.href to change the current page URL
             window.location.href = urlPath;
         }
+
+        // Random floating circles generator
+        setInterval(() => {
+            const circle = document.createElement('div');
+            circle.classList.add('circle');
+            circle.style.left = Math.random() * 100 + '%';
+            circle.style.width = Math.random() * 40 + 10 + 'px';
+            circle.style.height = circle.style.width;
+            circle.style.animationDelay = Math.random() * 5 + 's';
+            document.body.appendChild(circle);
+            setTimeout(() => circle.remove(), 10000);
+        }, 1500);
     </script>
 
 </body>
