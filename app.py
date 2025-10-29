@@ -10,15 +10,21 @@ OUTPUT_FILE = "static/output.mp3"
 def index():
     return render_template("frontend/index.html")
 
-# ✅ API Model Page (Google TTS)
 @app.route('/api_model')
 def api_model():
-    return render_template("frontend/pyttsx.html")  # agar tumhara API model page ka naam api.html hai
+    # Renders the specific page for the Pyttsx model
+    return render_template("frontend/api_model.html")
 
-# ✅ Pyttsx Model Page
 @app.route('/pyttsx_model')
 def pyttsx_model():
-    return render_template("frontend/pyttsx_2.html")  # ye tumhara Pyttsx wala page
+    # Renders the Pyttsx model page (UI only)
+    return render_template("frontend/pyttsx_model.html")
+
+@app.route('/trained_model')
+def trained_model():
+    # Renders the Trained model page (UI only)
+    return render_template("frontend/trained_model.html")
+
 
 # ✅ gTTS Speak
 @app.route('/speak', methods=['POST'])
