@@ -10,6 +10,10 @@ OUTPUT_FILE = "static/output.mp3"
 def index():
     return render_template("frontend/index.html")
 
+@app.route('/about')
+def about():
+    return render_template("frontend/about.html")
+
 @app.route('/api_model')
 def api_model():
     # Renders the specific page for the Pyttsx model
