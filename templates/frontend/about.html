@@ -1,22 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a, #111827);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    header {
+      width: 100%;
+      padding: 20px 50px;
+      display: flex;
+      justify-content: flex-end;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+      z-index: 10;
+    }
+
+    header a {
+      color: #00ffff;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 20px;
+      transition: 0.3s;
+    }
+
+    header a:hover {
+      text-shadow: 0 0 10px #00ffff;
+    }
+
+    h1, h2 {
+      text-align: center;
+      text-shadow: 0 0 15px #00ffff;
+    }
+
+    h1 {
+      margin-top: 120px;
+      font-size: 2.4rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-top: 60px;
+    }
+
+    .project-info {
+      text-align: center;
+      max-width: 800px;
+      margin-top: 15px;
+      color: #d1f7ff;
+      font-size: 1rem;
+      line-height: 1.7em;
+      padding: 0 20px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      flex-wrap: wrap;
+      gap: 60px;
+      margin-top: 60px;
+      padding-bottom: 80px;
+    }
+
+    .card {
+      width: 270px;
+      height: 360px;
+      perspective: 1000px;
+    }
+
+    .inner-card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s ease;
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+
+    .card:hover .inner-card {
+      transform: rotateY(180deg);
+    }
+
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      backface-visibility: hidden;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.15);
+      transition: all 0.4s ease;
+    }
+
+    .card:hover .card-front {
+      box-shadow: 0 0 35px rgba(0, 255, 255, 0.4);
+    }
+
+    .card-front img {
+      width: 100%;
+      height: 75%;
+      object-fit: cover;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
+
+    .card-front h3 {
+      margin: 10px 0;
+      text-align: center;
+      font-size: 1.2rem;
+      color: #00ffff;
+    }
+
+    .card-back {
+      background: rgba(0, 255, 255, 0.1);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.3);
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .card-back h3 {
+      color: #00ffff;
+      margin-bottom: 10px;
+    }
+
+    .card-back p {
+      font-size: 0.9rem;
+      line-height: 1.4em;
+      color: #d1f7ff;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('about') }}" style="margin-left: 16px;">About</a>
-        </nav>
-    </header>
 
-    <main>
-        <h1>About</h1>
-        <p>This is the about page.</p>
-    </main>
+  <header>
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('about') }}">About</a>
+  </header>
+
+  <h1>Project Description</h1>
+
+  <p class="project-info">
+    Our project is an advanced <strong>Text-to-Speech System</strong> built to convert written text into lifelike spoken words.
+    It combines the power of <strong>three models</strong> — an <strong>API-based engine</strong> for real-time cloud conversion,
+    <strong>pyttsx3</strong> for offline speech generation, and a <strong>custom-trained deep learning model</strong> for natural tone and clarity.
+    The system ensures flexibility, performance, and realistic output — making it a powerful AI-driven speech tool.
+  </p>
+
+  <h2>Meet Our Team</h2>
+
+  <div class="container">
+
+    <!-- Card 1 -->
+    <div class="card">
+      <div class="inner-card">
+        <div class="card-front">
+          <img src="https://i.pravatar.cc/260?img=12" alt="Team Member">
+          <h3>Hamza Arain</h3>
+        </div>
+        <div class="card-back">
+          <h3>Hamza Arain</h3>
+          <p>Lead Developer who handled the <strong>API Model</strong> integration and backend architecture.
+          Ensured smooth connection between Flask and speech APIs for real-time TTS conversion.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <div class="inner-card">
+        <div class="card-front">
+          <img src="https://i.pravatar.cc/260?img=14" alt="Team Member">
+          <h3>Uzair Khan</h3>
+        </div>
+        <div class="card-back">
+          <h3>Uzair Khan</h3>
+          <p>Frontend Designer responsible for crafting a visually stunning UI.
+          Implemented the <strong>pyttsx3 model</strong> for offline TTS with voice customization features.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <div class="inner-card">
+        <div class="card-front">
+          <img src="https://i.pravatar.cc/260?img=17" alt="Team Member">
+          <h3>Shoaib Ahmad</h3>
+        </div>
+        <div class="card-back">
+          <h3>Shoaib Ahmad</h3>
+          <p>Machine Learning Engineer who developed and trained the <strong>Deep Learning TTS model</strong>.
+          Focused on achieving human-like tone and voice accuracy for natural output.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </body>
 </html>
-
