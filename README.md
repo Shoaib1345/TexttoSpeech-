@@ -42,6 +42,7 @@ TexttoSpeech/
 │   └── frontend/
 │       └── index.html
 └── static/
+    -images
     ├── javascript/
     │   └── button1.js
     └── audio/
