@@ -17,30 +17,67 @@
       min-height: 100vh;
     }
 
+    /* Updated Header Styles - Same as main page */
     header {
-      width: 100%;
-      padding: 20px 50px;
-      display: flex;
-      justify-content: flex-end;
       position: fixed;
-      top: 0;
       left: 0;
-      background: rgba(255, 255, 255, 0.05);
+      right: 0;
+      top: 20px;
+      text-align: center;
+      z-index: 1000;
+    }
+
+    header nav {
+      display: inline-block;
+      margin: 0 auto;
+      position: relative;
+      background: rgba(0, 20, 30, 0.3);
+      border-radius: 50px;
+      padding: 8px 15px;
       backdrop-filter: blur(10px);
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
-      z-index: 10;
+      border: 1px solid rgba(0, 255, 255, 0.2);
+    }
+
+    .glass-slider {
+      position: absolute;
+      top: 8px;
+      left: 15px;
+      height: calc(100% - 16px);
+      background: rgba(0, 40, 60, 0.6);
+      border-radius: 25px;
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: -1;
+    }
+
+    .nav-links {
+      display: flex;
+      position: relative;
+      z-index: 2;
     }
 
     header a {
       color: #00ffff;
       text-decoration: none;
+      margin: 0 15px;
       font-weight: 600;
-      margin-left: 20px;
-      transition: 0.3s;
+      transition: all 0.3s ease;
+      padding: 8px 20px;
+      border-radius: 20px;
+      position: relative;
+      z-index: 3;
     }
 
     header a:hover {
       text-shadow: 0 0 10px #00ffff;
+      color: #ffffff;
+    }
+
+    header a.active {
+      color: #ffffff;
+      text-shadow: 0 0 15px #00ffff;
     }
 
     h1, h2 {
@@ -152,13 +189,91 @@
       line-height: 1.4em;
       color: #d1f7ff;
     }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        position: relative;
+        top: 0;
+        right: 0;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      header nav {
+        padding: 6px 12px;
+      }
+
+      header a {
+        margin: 0 10px;
+        padding: 6px 15px;
+      }
+
+      .glass-slider {
+        top: 6px;
+        left: 12px;
+        height: calc(100% - 12px);
+      }
+
+      h1 {
+        margin-top: 40px;
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.6rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header nav {
+        padding: 5px 10px;
+      }
+
+      header a {
+        margin: 0 8px;
+        padding: 5px 12px;
+        font-size: 0.9rem;
+      }
+
+      .glass-slider {
+        top: 5px;
+        left: 10px;
+        height: calc(100% - 10px);
+      }
+
+      h1 {
+        font-size: 1.8rem;
+        margin-top: 30px;
+      }
+
+      h2 {
+        font-size: 1.4rem;
+      }
+
+      .container {
+        gap: 30px;
+        margin-top: 40px;
+      }
+
+      .card {
+        width: 250px;
+        height: 340px;
+      }
+    }
   </style>
 </head>
 <body>
 
+  <!-- Updated Header with Glass Slider -->
   <header>
-    <a href="{{ url_for('index') }}">Home</a>
-    <a href="{{ url_for('about') }}">About</a>
+    <nav>
+      <div class="glass-slider"></div>
+      <div class="nav-links">
+        <a href="{{ url_for('index') }}" class="nav-link">Home</a>
+        <a href="{{ url_for('about') }}" class="nav-link active">About</a>
+      </div>
+    </nav>
   </header>
 
   <h1>Project Description</h1>
@@ -220,5 +335,56 @@
     </div>
 
   </div>
+
+  <!-- JavaScript for Glass Slider -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const navLinks = document.querySelectorAll('.nav-link');
+      const glassSlider = document.querySelector('.glass-slider');
+      
+      // Initialize slider position
+      function initializeSlider() {
+        const activeLink = document.querySelector('.nav-link.active');
+        if (activeLink) {
+          updateSliderPosition(activeLink);
+        }
+      }
+      
+      function updateSliderPosition(link) {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = link.closest('nav').getBoundingClientRect();
+        
+        glassSlider.style.width = `${linkRect.width}px`;
+        glassSlider.style.left = `${linkRect.left - navRect.left}px`;
+      }
+      
+      // Set initial position
+      initializeSlider();
+      
+      // Add click event listeners
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          // Remove active class from all links
+          navLinks.forEach(l => l.classList.remove('active'));
+          
+          // Add active class to clicked link
+          this.classList.add('active');
+          
+          // Update slider position
+          updateSliderPosition(this);
+          
+          // Navigate to the link after animation
+          setTimeout(() => {
+            window.location.href = this.getAttribute('href');
+          }, 400);
+        });
+      });
+      
+      // Update slider on window resize
+      window.addEventListener('resize', initializeSlider);
+    });
+  </script>
 </body>
 </html>
