@@ -1,0 +1,257 @@
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a, #111827);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Updated Header Styles - Same as main page */
+    header {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 20px;
+      text-align: center;
+      z-index: 1000;
+    }
+
+    header nav {
+      display: inline-block;
+      margin: 0 auto;
+      position: relative;
+      background: rgba(0, 20, 30, 0.3);
+      border-radius: 50px;
+      padding: 8px 15px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+    }
+
+    .glass-slider {
+      position: absolute;
+      top: 8px;
+      left: 15px;
+      height: calc(100% - 16px);
+      background: rgba(0, 40, 60, 0.6);
+      border-radius: 25px;
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: -1;
+    }
+
+    .nav-links {
+      display: flex;
+      position: relative;
+      z-index: 2;
+    }
+
+    header a {
+      color: #00ffff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      padding: 8px 20px;
+      border-radius: 20px;
+      position: relative;
+      z-index: 3;
+    }
+
+    header a:hover {
+      text-shadow: 0 0 10px #00ffff;
+      color: #ffffff;
+    }
+
+    header a.active {
+      color: #ffffff;
+      text-shadow: 0 0 15px #00ffff;
+    }
+
+    h1, h2 {
+      text-align: center;
+      text-shadow: 0 0 15px #00ffff;
+    }
+
+    h1 {
+      margin-top: 120px;
+      font-size: 2.4rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-top: 60px;
+    }
+
+    .project-info {
+      text-align: center;
+      max-width: 800px;
+      margin-top: 15px;
+      color: #d1f7ff;
+      font-size: 1rem;
+      line-height: 1.7em;
+      padding: 0 20px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      flex-wrap: wrap;
+      gap: 60px;
+      margin-top: 60px;
+      padding-bottom: 80px;
+    }
+
+    .card {
+      width: 270px;
+      height: 360px;
+      perspective: 1000px;
+    }
+
+    .inner-card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s ease;
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+
+    .card:hover .inner-card {
+      transform: rotateY(180deg);
+    }
+
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      backface-visibility: hidden;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.15);
+      transition: all 0.4s ease;
+    }
+
+    .card:hover .card-front {
+      box-shadow: 0 0 35px rgba(0, 255, 255, 0.4);
+    }
+
+    .card-front img {
+      width: 100%;
+      height: 75%;
+      object-fit: cover;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
+
+    .card-front h3 {
+      margin: 10px 0;
+      text-align: center;
+      font-size: 1.2rem;
+      color: #00ffff;
+    }
+
+    .card-back {
+      background: rgba(0, 255, 255, 0.1);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.3);
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .card-back h3 {
+      color: #00ffff;
+      margin-bottom: 10px;
+    }
+
+    .card-back p {
+      font-size: 0.9rem;
+      line-height: 1.4em;
+      color: #d1f7ff;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        position: relative;
+        top: 0;
+        right: 0;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      header nav {
+        padding: 6px 12px;
+      }
+
+      header a {
+        margin: 0 10px;
+        padding: 6px 15px;
+      }
+
+      .glass-slider {
+        top: 6px;
+        left: 12px;
+        height: calc(100% - 12px);
+      }
+
+      h1 {
+        margin-top: 40px;
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.6rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header nav {
+        padding: 5px 10px;
+      }
+
+      header a {
+        margin: 0 8px;
+        padding: 5px 12px;
+        font-size: 0.9rem;
+      }
+
+      .glass-slider {
+        top: 5px;
+        left: 10px;
+        height: calc(100% - 10px);
+      }
+
+      h1 {
+        font-size: 1.8rem;
+        margin-top: 30px;
+      }
+
+      h2 {
+        font-size: 1.4rem;
+      }
+
+      .container {
+        gap: 30px;
+        margin-top: 40px;
+      }
+
+      .card {
+        width: 250px;
+        height: 340px;
+      }
+    }
+  
