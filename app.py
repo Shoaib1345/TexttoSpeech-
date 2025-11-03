@@ -8,26 +8,26 @@ OUTPUT_FILE = "static/output.mp3"
 
 @app.route('/')
 def index():
-    return render_template("frontend/index.html")
+    return render_template("index.html")
 
 @app.route('/about')
 def about():
-    return render_template("frontend/about.html")
+    return render_template("about.html")
 
 @app.route('/api_model')
 def api_model():
     # Renders the specific page for the Pyttsx model
-    return render_template("frontend/api_model.html")
+    return render_template("api_model.html")
 
 @app.route('/pyttsx_model')
 def pyttsx_model():
     # Renders the Pyttsx model page (UI only)
-    return render_template("frontend/pyttsx_model.html")
+    return render_template("pyttsx_model.html")
 
 @app.route('/trained_model')
 def trained_model():
     # Renders the Trained model page (UI only)
-    return render_template("frontend/trained_model.html")
+    return render_template("trained_model.html")
 
 
 # ✅ gTTS Speak
