@@ -1,134 +1,442 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
-  
+  <title>Animated Electric Cards | Team</title>
+  <style>
+    :root {
+      --color-neutral-900: oklch(0.185 0 0);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: oklch(0.145 0 0);
+      color: oklch(0.985 0 0);
+      height: 100vh;
+      overflow: auto;
+      padding: 20px;
+    }
+
+    /* Project description section */
+    .project-section {
+      text-align: center;
+      max-width: 900px;
+      margin: 40px auto;
+      color: #fff;
+    }
+
+    .project-section h1 {
+      font-size: 40px;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #a78bfa, #34d399, #60a5fa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .project-section p {
+      font-size: 18px;
+      line-height: 1.6;
+      opacity: 0.8;
+    }
+
+    .team-heading {
+      text-align: center;
+      font-size: 36px;
+      margin: 60px 0 40px 0;
+      background: linear-gradient(45deg, #34d399, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Main container */
+    .main-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .svg-container {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .card-container {
+      padding: 2px;
+      border-radius: 24px;
+      position: relative;
+      background: linear-gradient(
+          -30deg,
+          var(--gradient-color),
+          transparent,
+          var(--gradient-color)
+        ),
+        linear-gradient(
+          to bottom,
+          var(--color-neutral-900),
+          var(--color-neutral-900)
+        );
+    }
+
+    .card-1 {
+      --electric-border-color: #8b5cf6;
+      --electric-light-color: #a78bfa;
+      --gradient-color: rgba(139, 92, 246, 0.4);
+    }
+
+    .card-2 {
+      --electric-border-color: #3b82f6;
+      --electric-light-color: #60a5fa;
+      --gradient-color: rgba(59, 130, 246, 0.4);
+    }
+
+    .card-3 {
+      --electric-border-color: #10b981;
+      --electric-light-color: #34d399;
+      --gradient-color: rgba(16, 185, 129, 0.4);
+    }
+
+    .inner-container {
+      position: relative;
+    }
+
+    .border-outer {
+      border: 2px solid rgba(72, 87, 221, 0.5);
+      border-radius: 24px;
+      padding-right: 4px;
+      padding-bottom: 4px;
+    }
+
+    .main-card {
+      width: 350px;
+      height: 500px;
+      border-radius: 24px;
+      border: 2px solid var(--electric-border-color);
+      margin-top: -4px;
+      margin-left: -4px;
+      filter: url(#turbulent-displace);
+    }
+
+    .glow-layer-1 {
+      border: 2px solid rgba(221, 132, 72, 0.6);
+      border-radius: 24px;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      filter: blur(1px);
+    }
+
+    .glow-layer-2 {
+      border: 2px solid var(--electric-light-color);
+      border-radius: 24px;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      filter: blur(4px);
+    }
+
+    .overlay-1 {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 24px;
+      opacity: 1;
+      mix-blend-mode: overlay;
+      transform: scale(1.1);
+      filter: blur(16px);
+      background: linear-gradient(
+        -30deg,
+        white,
+        transparent 30%,
+        transparent 70%,
+        white
+      );
+    }
+
+    .overlay-2 {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 24px;
+      opacity: 0.5;
+      mix-blend-mode: overlay;
+      transform: scale(1.1);
+      filter: blur(16px);
+      background: linear-gradient(
+        -30deg,
+        white,
+        transparent 30%,
+        transparent 70%,
+        white
+      );
+    }
+
+    .background-glow {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 24px;
+      filter: blur(32px);
+      transform: scale(1.1);
+      opacity: 0.3;
+      z-index: -1;
+      background: linear-gradient(
+        -30deg,
+        var(--electric-light-color),
+        transparent,
+        var(--electric-border-color)
+      );
+    }
+
+    .content-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-top {
+      display: flex;
+      flex-direction: column;
+      padding: 48px;
+      padding-bottom: 16px;
+      height: 100%;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 50px;
+    }
+
+    .content-bottom {
+      display: flex;
+      flex-direction: column;
+      padding: 48px;
+      padding-top: 16px;
+      align-items: center;
+    }
+
+    .title {
+      font-size: 36px;
+      font-weight: 500;
+      margin-top: auto;
+    }
+
+    .description {
+      opacity: 0.5;
+    }
+
+    .divider {
+      margin-top: auto;
+      border: none;
+      height: 1px;
+      background-color: currentColor;
+      opacity: 0.1;
+      mask-image: linear-gradient(to right, transparent, black, transparent);
+      -webkit-mask-image: linear-gradient(
+        to right,
+        transparent,
+        black,
+        transparent
+      );
+    }
+
+    .profile-image {
+      width: 180px;
+      height: 180px;
+      border-radius: 20px;
+      object-fit: cover;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 25px;
+      align-self: center;
+    }
+
+    .name {
+      font-size: 28px;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 10px;
+      background: linear-gradient(45deg, #fff, var(--electric-light-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .profile-description {
+      text-align: center;
+      opacity: 0.7;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+  </style>
 </head>
+
 <body>
+  <!-- Project Description Section -->
+  <section class="project-section">
+    <h1>Advanced Text-to-Speech System</h1>
+    <p>
+      Our project is an advanced Text-to-Speech System built to convert written text into lifelike spoken words.
+      It combines the power of three models — an API-based engine for real-time cloud conversion, pyttsx3 for offline
+      speech generation, and a custom-trained deep learning model for natural tone and clarity. The system ensures
+      flexibility, performance, and realistic output — making it a powerful AI-driven speech tool.
+    </p>
+  </section>
 
-  <!-- Updated Header with Glass Slider -->
-  <header>
-    <nav>
-      <div class="glass-slider"></div>
-      <div class="nav-links">
-        <a href="{{ url_for('index') }}" class="nav-link">Home</a>
-        <a href="{{ url_for('about') }}" class="nav-link active">About</a>
-      </div>
-    </nav>
-  </header>
+  <h2 class="team-heading">Meet Our Team</h2>
 
-  <h1>Project Description</h1>
+  <main class="main-container">
+    <svg class="svg-container">
+      <defs>
+        <filter id="turbulent-displace" colorInterpolationFilters="sRGB" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="10" result="noise1" seed="1" />
+          <feOffset in="noise1" dx="0" dy="0" result="offsetNoise1">
+            <animate attributeName="dy" values="700; 0" dur="6s" repeatCount="indefinite" calcMode="linear" />
+          </feOffset>
 
-  <p class="project-info">
-    Our project is an advanced <strong>Text-to-Speech System</strong> built to convert written text into lifelike spoken words.
-    It combines the power of <strong>three models</strong> — an <strong>API-based engine</strong> for real-time cloud conversion,
-    <strong>pyttsx3</strong> for offline speech generation, and a <strong>custom-trained deep learning model</strong> for natural tone and clarity.
-    The system ensures flexibility, performance, and realistic output — making it a powerful AI-driven speech tool.
-  </p>
+          <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="10" result="noise2" seed="1" />
+          <feOffset in="noise2" dx="0" dy="0" result="offsetNoise2">
+            <animate attributeName="dy" values="0; -700" dur="6s" repeatCount="indefinite" calcMode="linear" />
+          </feOffset>
 
-  <h2>Meet Our Team</h2>
+          <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="10" result="noise1" seed="2" />
+          <feOffset in="noise1" dx="0" dy="0" result="offsetNoise3">
+            <animate attributeName="dx" values="490; 0" dur="6s" repeatCount="indefinite" calcMode="linear" />
+          </feOffset>
 
-  <div class="container">
+          <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="10" result="noise2" seed="2" />
+          <feOffset in="noise2" dx="0" dy="0" result="offsetNoise4">
+            <animate attributeName="dx" values="0; -490" dur="6s" repeatCount="indefinite" calcMode="linear" />
+          </feOffset>
+
+          <feComposite in="offsetNoise1" in2="offsetNoise2" result="part1" />
+          <feComposite in="offsetNoise3" in2="offsetNoise4" result="part2" />
+          <feBlend in="part1" in2="part2" mode="color-dodge" result="combinedNoise" />
+
+          <feDisplacementMap in="SourceGraphic" in2="combinedNoise" scale="30" xChannelSelector="R" yChannelSelector="B" />
+        </filter>
+      </defs>
+    </svg>
 
     <!-- Card 1 -->
-    <div class="card">
-      <div class="inner-card">
-        <div class="card-front">
-          <img src="{{ url_for('static', filename='images/hamza.jpg') }}" alt="Team Member">
-          <h3>Ghufran Arain</h3>
+    <div class="card-container card-1">
+      <div class="inner-container">
+        <div class="border-outer">
+          <div class="main-card"></div>
         </div>
-        <div class="card-back">
-          <h3>Ghufran Arain</h3>
-          <p>Lead Developer who handled the <strong>API Model</strong> integration and backend architecture.
-          Ensured smooth connection between Flask and speech APIs for real-time TTS conversion.</p>
+        <div class="glow-layer-1"></div>
+        <div class="glow-layer-2"></div>
+      </div>
+
+      <div class="overlay-1"></div>
+      <div class="overlay-2"></div>
+      <div class="background-glow"></div>
+
+      <div class="content-container">
+        <div class="content-top">
+          <img src="{{ url_for('static', filename='images/shoaib.jpg') }}"
+               alt="Shoaib Ahmed" class="profile-image">
+          <h1 class="name">Shoaib Ahmed</h1>
+        </div>
+        <hr class="divider" />
+        <div class="content-bottom">
+          <p class="profile-description">
+            Passionate developer & creative designer. Specializing in modern web technologies and user experience design. Always learning and building something new.
+          </p>
         </div>
       </div>
     </div>
 
     <!-- Card 2 -->
-    <div class="card">
-      <div class="inner-card">
-        <div class="card-front">
-          <img src="{{ url_for('static', filename='images/ahtisham.jpg') }}" alt="Team Member">
-          <h3>Muhammad Ahtisham</h3>
+    <div class="card-container card-2">
+      <div class="inner-container">
+        <div class="border-outer">
+          <div class="main-card"></div>
         </div>
-        <div class="card-back">
-          <h3>Muhammad Ahtisham</h3>
-          <p>Frontend Designer responsible for crafting a visually stunning UI.
-          Implemented the <strong>pyttsx3 model</strong> for offline TTS with voice customization features.</p>
+        <div class="glow-layer-1"></div>
+        <div class="glow-layer-2"></div>
+      </div>
+
+      <div class="overlay-1"></div>
+      <div class="overlay-2"></div>
+      <div class="background-glow"></div>
+
+      <div class="content-container">
+        <div class="content-top">
+          <img src="{{ url_for('static', filename='images/ahtisham.jpg') }}"
+               alt="Ahtisham Shaikh" class="profile-image">
+          <h1 class="name">Ahtisham Shaikh</h1>
+        </div>
+        <hr class="divider" />
+        <div class="content-bottom">
+          <p class="profile-description">
+            Backend specialist & database architect. Expert in server-side technologies and cloud infrastructure management.
+          </p>
         </div>
       </div>
     </div>
 
     <!-- Card 3 -->
-    <div class="card">
-      <div class="inner-card">
-        <div class="card-front">
-          <img src="{{ url_for('static', filename='images/shoaib.jpg') }}" alt="Team Member">
-          <h3>Shoaib Ahmed</h3>
+    <div class="card-container card-3">
+      <div class="inner-container">
+        <div class="border-outer">
+          <div class="main-card"></div>
         </div>
-        <div class="card-back">
-          <h3>Shoaib Ahmed</h3>
-          <p>Machine Learning Engineer who developed and trained the <strong>Deep Learning TTS model</strong>.
-          Focused on achieving human-like tone and voice accuracy for natural output.</p>
+        <div class="glow-layer-1"></div>
+        <div class="glow-layer-2"></div>
+      </div>
+
+      <div class="overlay-1"></div>
+      <div class="overlay-2"></div>
+      <div class="background-glow"></div>
+
+      <div class="content-container">
+        <div class="content-top">
+          <img src="{{ url_for('static', filename='images/hamza.jpg') }}"
+               alt="Shoaib Ahmed" class="profile-image">
+          <h1 class="name">Ghufran Arain</h1>
+        </div>
+        <hr class="divider" />
+        <div class="content-bottom">
+          <p class="profile-description">
+            Mobile app developer & UI/UX enthusiast. Creating seamless cross-platform experiences with cutting-edge technologies.
+          </p>
         </div>
       </div>
     </div>
-
-  </div>
-
-  <!-- JavaScript for Glass Slider -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const navLinks = document.querySelectorAll('.nav-link');
-      const glassSlider = document.querySelector('.glass-slider');
-      
-      // Initialize slider position
-      function initializeSlider() {
-        const activeLink = document.querySelector('.nav-link.active');
-        if (activeLink) {
-          updateSliderPosition(activeLink);
-        }
-      }
-      
-      function updateSliderPosition(link) {
-        const linkRect = link.getBoundingClientRect();
-        const navRect = link.closest('nav').getBoundingClientRect();
-        
-        glassSlider.style.width = `${linkRect.width}px`;
-        glassSlider.style.left = `${linkRect.left - navRect.left}px`;
-      }
-      
-      // Set initial position
-      initializeSlider();
-      
-      // Add click event listeners
-      navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          
-          // Remove active class from all links
-          navLinks.forEach(l => l.classList.remove('active'));
-          
-          // Add active class to clicked link
-          this.classList.add('active');
-          
-          // Update slider position
-          updateSliderPosition(this);
-          
-          // Navigate to the link after animation
-          setTimeout(() => {
-            window.location.href = this.getAttribute('href');
-          }, 400);
-        });
-      });
-      
-      // Update slider on window resize
-      window.addEventListener('resize', initializeSlider);
-    });
-  </script>
+  </main>
 </body>
+
 </html>
