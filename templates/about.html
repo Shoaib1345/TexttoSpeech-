@@ -15,6 +15,99 @@
       box-sizing: border-box;
     }
 
+     header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 20px;
+    text-align: center;
+    z-index: 1000;
+  }
+
+  header nav {
+    display: inline-block;
+    margin: 0 auto;
+    position: relative;
+    background: rgba(0, 20, 30, 0.3);
+    border-radius: 50px;
+    padding: 8px 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+  }
+
+  .glass-slider {
+    position: absolute;
+    top: 8px;
+    left: 15px;
+    height: calc(100% - 16px);
+    background: rgba(0, 40, 60, 0.6);
+    border-radius: 25px;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+  }
+
+  .nav-links {
+    display: flex;
+    position: relative;
+    z-index: 2;
+  }
+
+  header a {
+    color: #00ffff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    padding: 8px 20px;
+    border-radius: 20px;
+    position: relative;
+    z-index: 3;
+  }
+
+  header a:hover {
+    text-shadow: 0 0 10px #00ffff;
+    color: #ffffff;
+  }
+
+  header a.active {
+    color: #ffffff;
+    text-shadow: 0 0 15px #00ffff;
+  }
+
+  @media (max-width: 768px) {
+      header {
+        position: relative;
+        top: 0;
+        right: 0;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      header nav {
+        padding: 6px 12px;
+      }
+
+      header a {
+        margin: 0 10px;
+        padding: 6px 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header nav {
+        padding: 5px 10px;
+      }
+
+      header a {
+        margin: 0 8px;
+        padding: 5px 12px;
+        font-size: 0.9rem;
+      }
+    }
+
     body {
       font-family: system-ui, -apple-system, sans-serif;
       background-color: oklch(0.145 0 0);
@@ -304,6 +397,16 @@
 </head>
 
 <body>
+  <header>
+    <nav>
+      <div class="glass-slider"></div>
+      <div class="nav-links">
+        <a href="/" class="nav-link active">Home</a>
+        <a href="/about" class="nav-link">About</a>
+      </div>
+    </nav>
+  </header>
+
   <!-- Project Description Section -->
   <section class="project-section">
     <h1>Advanced Text-to-Speech System</h1>
@@ -437,6 +540,63 @@
       </div>
     </div>
   </main>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const navLinks = document.querySelectorAll(".nav-link");
+  const glassSlider = document.querySelector(".glass-slider");
+  const navLinksContainer = document.querySelector(".nav-links");
+
+  function updateSliderPosition(activeLink) {
+    const linkRect = activeLink.getBoundingClientRect();
+    const containerRect = navLinksContainer.getBoundingClientRect();
+    const leftPos = linkRect.left - containerRect.left;
+
+    glassSlider.style.width = `${linkRect.width}px`;
+    glassSlider.style.transform = `translateX(${leftPos}px)`;
+  }
+
+  // 🔹 Detect active link based on current URL path
+  const currentPath = window.location.pathname.replace(/\/$/, ""); // removes trailing slash
+  let activeLink = null;
+
+  navLinks.forEach((link) => {
+    const linkPath = link.getAttribute("href").replace(/\/$/, "");
+    if (linkPath === currentPath) {
+      link.classList.add("active");
+      activeLink = link;
+    } else {
+      link.classList.remove("active");
+    }
+  });
+
+  // Initialize slider on the correct link
+  if (activeLink) updateSliderPosition(activeLink);
+  else updateSliderPosition(navLinks[0]); // fallback to first link
+
+  // Update on click
+  navLinks.forEach((link) => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      navLinks.forEach((l) => l.classList.remove("active"));
+      this.classList.add("active");
+      updateSliderPosition(this);
+
+      // Optional delayed navigation
+      setTimeout(() => {
+        window.location.href = this.getAttribute("href");
+      }, 300);
+    });
+  });
+
+  // Recalculate on resize
+  window.addEventListener("resize", () => {
+    const active = document.querySelector(".nav-link.active");
+    if (active) updateSliderPosition(active);
+  });
+});
+</script>
+
+
 </body>
 
 </html>
