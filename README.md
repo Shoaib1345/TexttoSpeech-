@@ -1,4 +1,4 @@
-# TexttoSpeech-
+# Text-to-Speech-
 
 Setup & Run
 # 1️⃣ Create virtual environment
@@ -31,7 +31,7 @@ Select from English, German, Japanese, or Italian
 
 Adjust voice speed and volume
 
-Buttons: Speak, Stop, and Reset
+Buttons: Speak, Stop, and Reset.
 
 # 📁 Folder Structure
 ```
